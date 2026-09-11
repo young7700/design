@@ -1,0 +1,763 @@
+<title>LG Design System</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg:#faf8f6;
+    --surface:#ffffff;
+    --surface-2:#f1eee9;
+    --text:#17151a;
+    --text-muted:#6b6670;
+    --border:#e4dfd8;
+    --accent:#a50034;
+    --accent-ink:#ffffff;
+    --accent-soft:#f6dce3;
+    --signal:#c97a2b;
+    --signal-ink:#ffffff;
+    --focus:#a50034;
+    --code-bg:#f1eee9;
+    --shadow: 0 1px 0 rgba(23,21,26,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0b0b0d;
+      --surface:#151318;
+      --surface-2:#1d1a20;
+      --text:#f3f1ef;
+      --text-muted:#9c97a0;
+      --border:#2c2930;
+      --accent:#ff3e63;
+      --accent-ink:#0b0b0d;
+      --accent-soft:#3a1420;
+      --signal:#e8a33d;
+      --signal-ink:#241704;
+      --focus:#ff3e63;
+      --code-bg:#1d1a20;
+      --shadow: 0 1px 0 rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0b0b0d;
+    --surface:#151318;
+    --surface-2:#1d1a20;
+    --text:#f3f1ef;
+    --text-muted:#9c97a0;
+    --border:#2c2930;
+    --accent:#ff3e63;
+    --accent-ink:#0b0b0d;
+    --accent-soft:#3a1420;
+    --signal:#e8a33d;
+    --signal-ink:#241704;
+    --focus:#ff3e63;
+    --code-bg:#1d1a20;
+    --shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Archivo',system-ui,sans-serif;
+    font-weight:700;
+    text-wrap:balance;
+    margin:0;
+    color:var(--text);
+  }
+  code, .mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+  a{ color:inherit; }
+  :focus-visible{ outline:2px solid var(--focus); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  .shell{
+    display:grid;
+    grid-template-columns:240px minmax(0,1fr);
+    max-width:1280px;
+    margin:0 auto;
+  }
+  aside.nav{
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    overflow-y:auto;
+    padding:28px 20px 40px;
+    border-right:1px solid var(--border);
+  }
+  .wordmark{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:28px;
+  }
+  .wordmark .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--accent);
+    display:inline-block;
+    transform:translateY(-2px);
+  }
+  .wordmark span{
+    font-family:'Archivo',sans-serif;
+    font-weight:800;
+    font-size:15px;
+    letter-spacing:0.02em;
+  }
+  .navgroup{ margin-bottom:22px; }
+  .navgroup h4{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.09em;
+    color:var(--text-muted);
+    font-weight:600;
+    font-family:'IBM Plex Sans',sans-serif;
+    margin-bottom:8px;
+  }
+  .navgroup a{
+    display:block;
+    text-decoration:none;
+    font-size:14px;
+    color:var(--text-muted);
+    padding:6px 0;
+    border-left:2px solid transparent;
+    padding-left:10px;
+    margin-left:-10px;
+    transition:color .15s, border-color .15s;
+  }
+  .navgroup a:hover, .navgroup a.active{
+    color:var(--text);
+    border-left-color:var(--accent);
+  }
+
+  main{ padding:40px 48px 120px; min-width:0; }
+
+  .hero{
+    padding-bottom:32px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:40px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+    display:block;
+  }
+  .hero h1{ font-size:clamp(30px,4vw,44px); line-height:1.08; max-width:16ch; }
+  .hero p.lead{
+    max-width:56ch;
+    color:var(--text-muted);
+    font-size:17px;
+    margin-top:14px;
+  }
+  .stat-row{
+    display:flex;
+    gap:28px;
+    margin-top:28px;
+    flex-wrap:wrap;
+  }
+  .stat{ min-width:88px; }
+  .stat b{
+    font-family:'Archivo',sans-serif;
+    font-size:26px;
+    display:block;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat span{ font-size:12px; color:var(--text-muted); }
+
+  section.block{ margin-bottom:64px; scroll-margin-top:24px; }
+  section.block > h2{
+    font-size:22px;
+    margin-bottom:6px;
+  }
+  section.block > .desc{
+    color:var(--text-muted);
+    max-width:60ch;
+    margin-bottom:24px;
+    font-size:15px;
+  }
+
+  /* ---- color swatches ---- */
+  .swatch-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:16px;
+  }
+  .swatch{
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--surface);
+    box-shadow:var(--shadow);
+  }
+  .swatch .fill{ height:76px; }
+  .swatch .meta{ padding:12px 14px; }
+  .swatch .meta .name{ font-weight:600; font-size:14px; }
+  .swatch .meta .hex{ font-size:12px; color:var(--text-muted); display:block; margin-top:2px; }
+  .swatch .meta .use{ font-size:12.5px; color:var(--text-muted); margin-top:8px; line-height:1.5; }
+
+  /* ---- type scale ---- */
+  .type-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:24px;
+    padding:18px 0;
+    border-bottom:1px solid var(--border);
+    flex-wrap:wrap;
+  }
+  .type-row:last-child{ border-bottom:none; }
+  .type-sample{ flex:1; min-width:0; }
+  .type-meta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--text-muted);
+    text-align:right;
+    white-space:nowrap;
+  }
+
+  /* ---- spacing ---- */
+  .space-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:8px 0;
+  }
+  .space-row .bar{
+    background:var(--accent);
+    height:10px;
+    border-radius:2px;
+  }
+  .space-row .label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--text-muted);
+    width:110px;
+    flex-shrink:0;
+  }
+  .grid-demo{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:8px;
+    margin-top:28px;
+  }
+  .grid-demo .col{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:4px;
+    height:36px;
+  }
+
+  /* ---- buttons ---- */
+  .row{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+  .btn{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    border-radius:2px;
+    padding:12px 22px;
+    border:1px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{ background:var(--accent); color:var(--accent-ink); }
+  .btn-primary:hover{ opacity:0.88; }
+  .btn-secondary{ background:transparent; border-color:var(--text); color:var(--text); }
+  .btn-secondary:hover{ background:var(--surface-2); }
+  .btn-ghost{ background:transparent; color:var(--accent); text-decoration:underline; padding:12px 4px; }
+  .btn-sm{ padding:8px 16px; font-size:13px; }
+  .btn[disabled]{ opacity:0.4; cursor:not-allowed; }
+  .swatch-caption{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--text-muted);
+    margin-top:6px;
+    display:block;
+  }
+  .specimen{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:28px;
+  }
+  .specimen-group{ margin-bottom:22px; }
+  .specimen-group:last-child{ margin-bottom:0; }
+
+  /* ---- badges ---- */
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:3px;
+    font-weight:500;
+  }
+  .badge-new{ background:var(--accent); color:var(--accent-ink); }
+  .badge-sale{ background:var(--signal); color:var(--signal-ink); }
+  .badge-outline{ background:transparent; border:1px solid var(--border); color:var(--text-muted); text-transform:none; font-family:'IBM Plex Sans',sans-serif; letter-spacing:0; font-size:12.5px; }
+
+  /* ---- cards ---- */
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+  }
+  .product-card{
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--surface);
+    display:flex;
+    flex-direction:column;
+  }
+  .product-card .art{
+    aspect-ratio:4/3;
+    position:relative;
+    overflow:hidden;
+  }
+  .art-1{ background:radial-gradient(circle at 30% 20%, #ff6688, #1a0a14 70%); }
+  .art-2{ background:linear-gradient(135deg,#0b0b0d,#26232a 60%, #a50034 140%); }
+  .art-3{ background:radial-gradient(circle at 70% 70%, #ffd166 0%, #0b0b0d 65%); }
+  .product-card .art .tag{
+    position:absolute; top:10px; left:10px;
+  }
+  .product-card .info{ padding:16px; flex:1; display:flex; flex-direction:column; gap:8px; }
+  .product-card .info h4{ font-size:15px; }
+  .product-card .info .price{ font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--text-muted); }
+  .product-card .info .cta{ margin-top:auto; }
+
+  /* ---- nav mock ---- */
+  .navmock{
+    background:#0b0b0d;
+    color:#f3f1ef;
+    border-radius:10px;
+    padding:16px 22px;
+    display:flex;
+    align-items:center;
+    gap:28px;
+    overflow-x:auto;
+  }
+  .navmock .brand{ font-family:'Archivo',sans-serif; font-weight:800; font-size:15px; white-space:nowrap; }
+  .navmock .links{ display:flex; gap:20px; font-size:13.5px; color:#c9c5cc; white-space:nowrap; }
+  .navmock .links a{ text-decoration:none; }
+  .navmock .links a:hover{ color:#fff; }
+  .navmock .spacer{ flex:1; }
+  .navmock .icons{ display:flex; gap:14px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#c9c5cc; white-space:nowrap; }
+  .megamenu{
+    margin-top:2px;
+    background:#151318;
+    border-radius:0 0 10px 10px;
+    padding:20px 22px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    color:#e7e4e8;
+  }
+  .megamenu .col h5{ font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:#8a8590; margin:0 0 10px; font-weight:600; font-family:'IBM Plex Sans',sans-serif;}
+  .megamenu .col a{ display:block; font-size:13.5px; color:#d8d5da; text-decoration:none; padding:4px 0; }
+  .megamenu .col a:hover{ color:#ff3e63; }
+
+  /* ---- forms ---- */
+  .field{ display:flex; flex-direction:column; gap:6px; max-width:320px; }
+  .field label{ font-size:12.5px; font-weight:600; color:var(--text-muted); }
+  .field input, .field select{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:14px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:4px;
+    background:var(--surface);
+    color:var(--text);
+  }
+  .search-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:10px 14px;
+    max-width:380px;
+    background:var(--surface);
+    color:var(--text-muted);
+    font-size:14px;
+  }
+  .checkbox-row{ display:flex; align-items:center; gap:8px; font-size:14px; }
+
+  /* ---- footer mock ---- */
+  .footermock{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:28px;
+  }
+  .footermock .cols{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:24px;
+  }
+  .footermock .cols h5{ font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin:0 0 10px; font-weight:600; }
+  .footermock .cols a{ display:block; font-size:13.5px; color:var(--text); text-decoration:none; padding:3px 0; opacity:0.82; }
+  .footermock .legal{
+    margin-top:22px;
+    padding-top:18px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:var(--text-muted);
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  /* ---- guidelines ---- */
+  .rule-cols{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .rule-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .rule-list li{ display:flex; gap:10px; font-size:14.5px; align-items:flex-start; }
+  .rule-list .mark{ font-family:'IBM Plex Mono',monospace; font-weight:600; flex-shrink:0; width:18px; }
+  .rule-do .mark{ color:#3f9d5c; }
+  .rule-dont .mark{ color:var(--accent); }
+  .rule-cols h4{ font-size:13px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px; color:var(--text-muted); }
+
+  @media (max-width:880px){
+    .shell{ grid-template-columns:1fr; }
+    aside.nav{
+      position:sticky; top:0; height:auto; z-index:5;
+      border-right:none; border-bottom:1px solid var(--border);
+      background:var(--bg);
+      padding:14px 16px;
+      display:flex; align-items:center; gap:18px;
+      overflow-x:auto;
+    }
+    .wordmark{ margin-bottom:0; }
+    .navgroup{ display:flex; gap:16px; margin-bottom:0; align-items:center; white-space:nowrap; }
+    .navgroup h4{ display:none; }
+    .navgroup a{ padding-left:0; margin-left:0; border-left:none; padding:4px 0; border-bottom:2px solid transparent; }
+    .navgroup a:hover, .navgroup a.active{ border-left-color:transparent; border-bottom-color:var(--accent); }
+    main{ padding:28px 18px 90px; }
+    .megamenu{ grid-template-columns:repeat(2,1fr); }
+    .rule-cols{ grid-template-columns:1fr; }
+  }
+</style>
+
+<div class="shell">
+  <aside class="nav">
+    <div class="wordmark"><span class="dot"></span><span>LG · DESIGN SYSTEM</span></div>
+
+    <div class="navgroup">
+      <h4>Foundations</h4>
+      <a href="#color">Color</a>
+      <a href="#type">Typography</a>
+      <a href="#space">Spacing &amp; grid</a>
+    </div>
+    <div class="navgroup">
+      <h4>Components</h4>
+      <a href="#buttons">Buttons</a>
+      <a href="#badges">Badges &amp; tags</a>
+      <a href="#cards">Cards</a>
+      <a href="#navigation">Navigation</a>
+      <a href="#forms">Forms</a>
+      <a href="#footer">Footer</a>
+    </div>
+    <div class="navgroup">
+      <h4>Reference</h4>
+      <a href="#guidelines">Guidelines</a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="hero">
+      <span class="eyebrow">Reference · v1.0 · derived from lg.com/uk</span>
+      <h1>A design system read from LG's own storefront</h1>
+      <p class="lead">Dark product staging, one disciplined red, and confident industrial type — the visual habits of lg.com/uk, organised as reusable tokens and components.</p>
+      <div class="stat-row">
+        <div class="stat"><b>06</b><span>Colour tokens</span></div>
+        <div class="stat"><b>08</b><span>Type steps</span></div>
+        <div class="stat"><b>09</b><span>Spacing steps</span></div>
+        <div class="stat"><b>06</b><span>Components</span></div>
+      </div>
+    </div>
+
+    <section class="block" id="color">
+      <h2>Colour</h2>
+      <p class="desc">lg.com/uk stages products on near-black grounds and spends colour on exactly one thing: the call to action. The palette below keeps that discipline — a single accent, a single secondary "signal" for promotions, and neutrals with a faint warm bias rather than flat grey.</p>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="fill" style="background:#0b0b0d;"></div>
+          <div class="meta"><span class="name">Ink</span><span class="hex">#0B0B0D</span><span class="use">Product-staging background. The black behind hero imagery and the dark-theme ground.</span></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:#faf8f6;"></div>
+          <div class="meta"><span class="name">Paper</span><span class="hex">#FAF8F6</span><span class="use">Documentation ground — warm off-white, never stark white.</span></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:#a50034;"></div>
+          <div class="meta"><span class="name">Signal Red</span><span class="hex">#A50034</span><span class="use">The one brand action colour. CTAs, active nav state, the single key badge per view.</span></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:#ff3e63;"></div>
+          <div class="meta"><span class="name">Ember</span><span class="hex">#FF3E63</span><span class="use">Red lifted for AA contrast on Ink — the accent's dark-mode voice, same hue family.</span></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:#6b6670;"></div>
+          <div class="meta"><span class="name">Slate</span><span class="hex">#6B6670</span><span class="use">Secondary text, captions, and the hue borders are mixed from — never pure grey.</span></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:#c97a2b;"></div>
+          <div class="meta"><span class="name">Amber Signal</span><span class="hex">#C97A2B</span><span class="use">Promotional badges — NEW, SALE, %OFF. Reserved strictly for merchandising, never actions.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="type">
+      <h2>Typography</h2>
+      <p class="desc">Archivo carries headlines with the same blunt, engineered confidence as LG's product names; IBM Plex Sans reads long-form copy; IBM Plex Mono marks anything technical — token names, prices, specs.</p>
+      <div class="specimen">
+        <div class="type-row">
+          <div class="type-sample"><span style="font-family:'Archivo';font-weight:800;font-size:44px;line-height:1.05;">OLED evo AI</span></div>
+          <div class="type-meta">Display · Archivo 800 · 44/46</div>
+        </div>
+        <div class="type-row">
+          <div class="type-sample"><span style="font-family:'Archivo';font-weight:700;font-size:32px;">Sound that surrounds you</span></div>
+          <div class="type-meta">H1 · Archivo 700 · 32/38</div>
+        </div>
+        <div class="type-row">
+          <div class="type-sample"><span style="font-family:'Archivo';font-weight:700;font-size:24px;">Home appliances</span></div>
+          <div class="type-meta">H2 · Archivo 700 · 24/30</div>
+        </div>
+        <div class="type-row">
+          <div class="type-sample"><span style="font-family:'Archivo';font-weight:600;font-size:18px;">InstaView™ Door-in-Door®</span></div>
+          <div class="type-meta">H3 · Archivo 600 · 18/26</div>
+        </div>
+        <div class="type-row">
+          <div class="type-sample"><span style="font-family:'IBM Plex Sans';font-weight:400;font-size:18px;">Save up to 20% across selected TVs and soundbars this week.</span></div>
+          <div class="type-meta">Body Large · Plex Sans 400 · 18/29</div>
+        </div>
+        <div class="type-row">
+          <div class="type-sample"><span style="font-family:'IBM Plex Sans';font-weight:400;font-size:16px;">Free delivery and a 14-day return window on every order.</span></div>
+          <div class="type-meta">Body · Plex Sans 400 · 16/26</div>
+        </div>
+        <div class="type-row">
+          <div class="type-sample"><span style="font-family:'IBM Plex Sans';font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:0.09em;color:var(--text-muted);">Limited-time offer</span></div>
+          <div class="type-meta">Caption · Plex Sans 600 · 12.5/18 · +0.09em</div>
+        </div>
+        <div class="type-row">
+          <div class="type-sample"><span style="font-family:'IBM Plex Mono';font-weight:400;font-size:14px;">MODEL — OLED55C4 · £1,299.00</span></div>
+          <div class="type-meta">Mono · Plex Mono 400 · 14/22</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="space">
+      <h2>Spacing &amp; grid</h2>
+      <p class="desc">A base-4 scale, used sparingly at the small end and generously between sections — the sparse, breathing layout of a product page rather than a dense catalogue.</p>
+      <div class="specimen">
+        <div class="space-row"><span class="label">--sp-1 · 4px</span><span class="bar" style="width:4px;"></span></div>
+        <div class="space-row"><span class="label">--sp-2 · 8px</span><span class="bar" style="width:8px;"></span></div>
+        <div class="space-row"><span class="label">--sp-3 · 12px</span><span class="bar" style="width:12px;"></span></div>
+        <div class="space-row"><span class="label">--sp-4 · 16px</span><span class="bar" style="width:16px;"></span></div>
+        <div class="space-row"><span class="label">--sp-5 · 24px</span><span class="bar" style="width:24px;"></span></div>
+        <div class="space-row"><span class="label">--sp-6 · 32px</span><span class="bar" style="width:32px;"></span></div>
+        <div class="space-row"><span class="label">--sp-7 · 48px</span><span class="bar" style="width:48px;"></span></div>
+        <div class="space-row"><span class="label">--sp-8 · 64px</span><span class="bar" style="width:64px;"></span></div>
+        <div class="space-row"><span class="label">--sp-9 · 96px</span><span class="bar" style="width:96px;"></span></div>
+        <div class="grid-demo">
+          <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+          <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+          <div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div>
+        </div>
+        <span class="swatch-caption">12-column grid · 8px gap · gutters follow --sp-5 on desktop, --sp-4 on mobile</span>
+      </div>
+    </section>
+
+    <section class="block" id="buttons">
+      <h2>Buttons</h2>
+      <p class="desc">Square corners, no drop shadow — weight comes from fill and label, not elevation. Exactly one primary action visible at a time.</p>
+      <div class="specimen">
+        <div class="specimen-group">
+          <div class="row">
+            <button class="btn btn-primary">Buy now</button>
+            <button class="btn btn-secondary">Learn more</button>
+            <a class="btn btn-ghost" href="#">View all offers</a>
+            <button class="btn btn-primary" disabled>Sold out</button>
+          </div>
+          <span class="swatch-caption">.btn-primary · .btn-secondary · .btn-ghost · [disabled]</span>
+        </div>
+        <div class="specimen-group">
+          <div class="row">
+            <button class="btn btn-primary btn-sm">Add to basket</button>
+            <button class="btn btn-secondary btn-sm">Compare</button>
+          </div>
+          <span class="swatch-caption">.btn-sm — dense contexts: cards, table rows</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="badges">
+      <h2>Badges &amp; tags</h2>
+      <p class="desc">Monospace, uppercase, and small — badges read as system labels, not decoration, so they never compete with the accent's use as a call to action.</p>
+      <div class="specimen">
+        <div class="row">
+          <span class="badge badge-new">New</span>
+          <span class="badge badge-sale">-20%</span>
+          <span class="badge badge-sale">Sale</span>
+          <span class="badge-outline badge">Energy rating A</span>
+          <span class="badge-outline badge">4K · OLED</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="cards">
+      <h2>Cards</h2>
+      <p class="desc">Imagery sits on abstract gradient studio backgrounds rather than flat colour — a habit borrowed directly from lg.com's promotional tiles.</p>
+      <div class="card-grid">
+        <div class="product-card">
+          <div class="art art-1"><span class="badge badge-new tag">New</span></div>
+          <div class="info">
+            <h4>OLED evo C4 55"</h4>
+            <span class="price">£1,299.00</span>
+            <div class="cta"><button class="btn btn-primary btn-sm">Buy now</button></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="art art-2"><span class="badge badge-sale tag">-15%</span></div>
+          <div class="info">
+            <h4>XBOOM 360 Speaker</h4>
+            <span class="price">£279.00 <span style="text-decoration:line-through;opacity:.6;">£329.00</span></span>
+            <div class="cta"><button class="btn btn-secondary btn-sm">Add to basket</button></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="art art-3"></div>
+          <div class="info">
+            <h4>InstaView Fridge Freezer</h4>
+            <span class="price">£1,899.00</span>
+            <div class="cta"><button class="btn btn-secondary btn-sm">Compare</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="navigation">
+      <h2>Navigation</h2>
+      <p class="desc">The primary nav stays dark regardless of site theme — it is the one component lg.com never renders on white.</p>
+      <div class="navmock">
+        <span class="brand">LG</span>
+        <div class="links">
+          <a href="#">TV &amp; Audio</a>
+          <a href="#">Appliances</a>
+          <a href="#">Computing</a>
+          <a href="#">Support</a>
+        </div>
+        <div class="spacer"></div>
+        <div class="icons"><span>Search</span><span>Account</span><span>Basket (2)</span></div>
+      </div>
+      <div class="megamenu">
+        <div class="col"><h5>TV &amp; Audio</h5><a href="#">OLED TVs</a><a href="#">Soundbars</a><a href="#">Projectors</a></div>
+        <div class="col"><h5>Appliances</h5><a href="#">Washing machines</a><a href="#">Fridge freezers</a><a href="#">Dishwashers</a></div>
+        <div class="col"><h5>Computing</h5><a href="#">Laptops</a><a href="#">Monitors</a><a href="#">Accessories</a></div>
+        <div class="col"><h5>Support</h5><a href="#">Registered products</a><a href="#">Repairs</a><a href="#">Contact us</a></div>
+      </div>
+    </section>
+
+    <section class="block" id="forms">
+      <h2>Forms</h2>
+      <p class="desc">Minimal chrome — a single hairline border, no fills until focus.</p>
+      <div class="specimen">
+        <div class="specimen-group">
+          <div class="search-bar"><span class="mono">⌕</span><span>Search products, support, offers…</span></div>
+        </div>
+        <div class="specimen-group row" style="align-items:flex-end;">
+          <div class="field">
+            <label for="ds-email">Email address</label>
+            <input id="ds-email" type="email" placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="ds-category">Category</label>
+            <select id="ds-category">
+              <option>TV &amp; Audio</option>
+              <option>Appliances</option>
+              <option>Computing</option>
+            </select>
+          </div>
+        </div>
+        <div class="specimen-group checkbox-row">
+          <input id="ds-newsletter" type="checkbox">
+          <label for="ds-newsletter">Send me offers and product news</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="footer">
+      <h2>Footer</h2>
+      <p class="desc">Link groups mirror the primary nav exactly — the footer is a sitemap, not a separate hierarchy.</p>
+      <div class="footermock">
+        <div class="cols">
+          <div><h5>Shop</h5><a href="#">TV &amp; Audio</a><a href="#">Appliances</a><a href="#">Computing</a></div>
+          <div><h5>Support</h5><a href="#">Repairs</a><a href="#">Warranty</a><a href="#">Contact us</a></div>
+          <div><h5>Business</h5><a href="#">LG Business</a><a href="#">Careers</a></div>
+          <div><h5>Company</h5><a href="#">Sustainability</a><a href="#">Newsroom</a></div>
+        </div>
+        <div class="legal">
+          <span>© LG Electronics UK</span>
+          <span>Privacy · Terms · Accessibility · Cookie settings</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="guidelines">
+      <h2>Guidelines</h2>
+      <p class="desc">The rules that keep the system feeling like one product, drawn from how lg.com/uk actually uses restraint.</p>
+      <div class="specimen rule-cols">
+        <div class="rule-do">
+          <h4>Do</h4>
+          <ul class="rule-list">
+            <li><span class="mark">✓</span>Use Signal Red for exactly one action per screen.</li>
+            <li><span class="mark">✓</span>Stage product imagery on Ink or a gradient, never a flat mid-tone.</li>
+            <li><span class="mark">✓</span>Set badges in Plex Mono so they read as data, not decoration.</li>
+            <li><span class="mark">✓</span>Keep the primary nav dark even on a light-theme page.</li>
+          </ul>
+        </div>
+        <div class="rule-dont">
+          <h4>Don't</h4>
+          <ul class="rule-list">
+            <li><span class="mark">✕</span>Pair two accent buttons in the same view.</li>
+            <li><span class="mark">✕</span>Use Amber Signal for anything but merchandising badges.</li>
+            <li><span class="mark">✕</span>Round card corners more than 10px — the brand reads square.</li>
+            <li><span class="mark">✕</span>Let body copy run past ~65 characters per line.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.navgroup a'));
+    var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    if (!('IntersectionObserver' in window) || !sections.length) return;
+    var byId = {};
+    links.forEach(function(a){ byId[a.getAttribute('href').slice(1)] = a; });
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          links.forEach(function(a){ a.classList.remove('active'); });
+          var link = byId[entry.target.id];
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+  })();
+</script>
